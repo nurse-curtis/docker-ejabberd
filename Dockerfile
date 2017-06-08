@@ -1,6 +1,62 @@
 FROM debian:jessie
 MAINTAINER Rafael Römhild <rafael@roemhild.de>
 
+LABEL org.freenas.interactive="false" \
+      org.freenas.version="1" \
+      org.freenas.upgradeable="false" \
+      org.freenas.expose-ports-at-host="true" \
+      org.freenas.autostart="true" \
+      org.freenas.port-mappings="5222:5222/tcp,5269:5269/tcp,5280:5280/tcp,4560:4560/tcp,5443:5443/tcp" \
+      org.freenas.volumes="[\
+          {\
+              \"name\": \"/opt/ejabberd/conf\",\
+              \"descr\": \"Config volume\"\
+          }, \
+          {\
+              \"name\": \"/opt/ejabberd/backup\",\
+              \"descr\": \"Backup volume\"\
+          }, \
+          {\
+              \"name\": \"/opt/ejabberd/upload\",\
+              \"descr\": \"Upload volume\"\
+          }, \
+          { \
+              \"name\": \"/opt/ejabberd/database\",\
+              \"descr\": \"Database volume\"\
+          }, \          
+          {  \
+              \"name\": \"/opt/ejabberd/ssl\",\
+              \"descr\": \"SSL volume\"\
+          } \
+      ]" \
+      org.freenas.settings="[\
+          { \
+              \"env\": \"XMPP_DOMAIN\",\
+              \"descr\": \"XMPP Domain\",\
+              \"optional\": true\
+          }, \
+          { \
+              \"env\": \"EJABBERD_ADMINS\",\
+              \"descr\": \"XMPP Admins\",\
+              \"optional\": true\
+          }, \
+          { \
+              \"env\": \"EJABBERD_USERS\",\
+              \"descr\": \"XMPP Users\",\
+              \"optional\": true\
+          }, \
+          { \
+              \"env\": \"EJABBERD_AUTH_METHOD\",\
+              \"descr\": \"Auth Method default internal\",\
+              \"optional\": true\
+          }, \ 
+          { \
+              \"env\": \"PGID\",\
+              \"descr\": \"GroupId\",\
+              \"optional\": true\
+          } \
+      ]"
+
 ENV EJABBERD_BRANCH=17.04 \
     EJABBERD_USER=ejabberd \
     EJABBERD_HTTPS=true \
@@ -51,6 +107,7 @@ RUN set -x \
         python-mysqldb \
         imagemagick \
     ' \
+    && apt-get install python-requests python-configargparse \
     && apt-key adv \
         --keyserver keys.gnupg.net \
         --recv-keys 434975BD900CCBE4F7EE1B1ED208507CA14F4FCA \
@@ -73,6 +130,9 @@ RUN set -x \
         --disable-pam \
     && make debug=$EJABBERD_DEBUG_MODE \
     && make install \
+    && git clone https://github.com/jsxc/xmpp-cloud-auth.git $EJABBERD_HOME/xmpp-cloud-auth \
+    && chmod u+x /$EJABBERD_HOME/xmpp-cloud-auth/external_cloud.py \
+    && chown $EJABBERD_USER: -R /$EJABBERD_HOME/xmpp-cloud-auth \
     && mkdir $EJABBERD_HOME/ssl \
     && mkdir $EJABBERD_HOME/conf \
     && mkdir $EJABBERD_HOME/backup \
