@@ -130,9 +130,6 @@ RUN set -x \
         --disable-pam \
     && make debug=$EJABBERD_DEBUG_MODE \
     && make install \
-    && git clone https://github.com/jsxc/xmpp-cloud-auth.git $EJABBERD_HOME/xmpp-cloud-auth \
-    && chmod u+x /$EJABBERD_HOME/xmpp-cloud-auth/external_cloud.py \
-    && chown $EJABBERD_USER: -R /$EJABBERD_HOME/xmpp-cloud-auth \
     && mkdir $EJABBERD_HOME/ssl \
     && mkdir $EJABBERD_HOME/conf \
     && mkdir $EJABBERD_HOME/backup \
@@ -140,6 +137,9 @@ RUN set -x \
     && mkdir $EJABBERD_HOME/database \
     && mkdir $EJABBERD_HOME/module_source \
     && cd $EJABBERD_HOME \
+    && git clone https://github.com/jsxc/xmpp-cloud-auth.git \
+    && chmod u+x xmpp-cloud-auth/external_cloud.py \
+    && chown $EJABBERD_USER: -R xmpp-cloud-auth \
     && rm -rf /tmp/ejabberd \
     && rm -rf /etc/ejabberd \
     && ln -sf $EJABBERD_HOME/conf /etc/ejabberd \
