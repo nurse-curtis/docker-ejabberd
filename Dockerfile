@@ -137,9 +137,6 @@ RUN set -x \
     && mkdir $EJABBERD_HOME/database \
     && mkdir $EJABBERD_HOME/module_source \
     && cd $EJABBERD_HOME \
-    && git clone https://github.com/jsxc/xmpp-cloud-auth.git \
-    && chmod u+x xmpp-cloud-auth/external_cloud.py \
-    && chown $EJABBERD_USER: -R xmpp-cloud-auth \
     && rm -rf /tmp/ejabberd \
     && rm -rf /etc/ejabberd \
     && ln -sf $EJABBERD_HOME/conf /etc/ejabberd \
