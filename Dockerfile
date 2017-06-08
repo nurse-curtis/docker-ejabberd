@@ -101,8 +101,8 @@ RUN set -x \
         erlang-parsetools erlang-percept erlang-typer \
         python-mysqldb \
         imagemagick \
+        python-requests python-configargparse \
     ' \
-    && apt-get install python-requests python-configargparse \
     && apt-key adv \
         --keyserver keys.gnupg.net \
         --recv-keys 434975BD900CCBE4F7EE1B1ED208507CA14F4FCA \
@@ -132,6 +132,8 @@ RUN set -x \
     && mkdir $EJABBERD_HOME/database \
     && mkdir $EJABBERD_HOME/module_source \
     && cd $EJABBERD_HOME \
+    && git clone https://github.com/jsxc/xmpp-cloud-auth.git \
+    && chmod u+x xmpp-cloud-auth/external_cloud.py \
     && rm -rf /tmp/ejabberd \
     && rm -rf /etc/ejabberd \
     && ln -sf $EJABBERD_HOME/conf /etc/ejabberd \
