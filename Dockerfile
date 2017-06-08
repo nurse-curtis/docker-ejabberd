@@ -7,53 +7,48 @@ LABEL org.freenas.interactive="false" \
       org.freenas.expose-ports-at-host="true" \
       org.freenas.autostart="true" \
       org.freenas.port-mappings="5222:5222/tcp,5269:5269/tcp,5280:5280/tcp,4560:4560/tcp,5443:5443/tcp" \
-      org.freenas.volumes="[\
-          {\
-              \"name\": \"/opt/ejabberd/conf\",\
-              \"descr\": \"Config volume\"\
+      org.freenas.volumes="[ \
+          { \
+              \"name\": \"/opt/ejabberd/conf\", \
+              \"descr\": \"Config volume\" \
           }, \
           {\
-              \"name\": \"/opt/ejabberd/backup\",\
-              \"descr\": \"Backup volume\"\
-          }, \
-          {\
-              \"name\": \"/opt/ejabberd/upload\",\
-              \"descr\": \"Upload volume\"\
+              \"name\": \"/opt/ejabberd/backup\", \
+              \"descr\": \"Backup volume\" \
           }, \
           { \
-              \"name\": \"/opt/ejabberd/database\",\
-              \"descr\": \"Database volume\"\
+              \"name\": \"/opt/ejabberd/upload\", \
+              \"descr\": \"Upload volume\" \
+          }, \
+          { \
+              \"name\": \"/opt/ejabberd/database\", \
+              \"descr\": \"Database volume\" \
           }, \          
           {  \
-              \"name\": \"/opt/ejabberd/ssl\",\
-              \"descr\": \"SSL volume\"\
+              \"name\": \"/opt/ejabberd/ssl\", \
+              \"descr\": \"SSL volume\" \
           } \
       ]" \
-      org.freenas.settings="[\
+      org.freenas.settings="[ \
           { \
-              \"env\": \"XMPP_DOMAIN\",\
-              \"descr\": \"XMPP Domain\",\
+              \"env\": \"XMPP_DOMAIN\", \
+              \"descr\": \"XMPP Domain\", \
               \"optional\": true\
           }, \
           { \
-              \"env\": \"EJABBERD_ADMINS\",\
-              \"descr\": \"XMPP Admins\",\
-              \"optional\": true\
+              \"env\": \"EJABBERD_ADMINS\", \
+              \"descr\": \"XMPP Admins\", \
+              \"optional\": true \
           }, \
           { \
-              \"env\": \"EJABBERD_USERS\",\
-              \"descr\": \"XMPP Users\",\
-              \"optional\": true\
+              \"env\": \"EJABBERD_USERS\", \
+              \"descr\": \"XMPP Users\", \
+              \"optional\": true \
           }, \
           { \
-              \"env\": \"EJABBERD_AUTH_METHOD\",\
-              \"descr\": \"Auth Method default internal\",\
-              \"optional\": true\
-          }, \ 
-          { \
-              \"env\": \"PGID\",\
-              \"descr\": \"GroupId\",\
-              \"optional\": true\
+              \"env\": \"EJABBERD_AUTH_METHOD\", \
+              \"descr\": \"Auth Method default internal\", \
+              \"optional\": true \
           } \
       ]"
 
